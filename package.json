@@ -1,0 +1,29 @@
+{
+  "name": "react-resize-layout",
+  "version": "0.0.1",
+  "description": "this layout component is resizable layout using mouse or touch",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && babel src --out-dir dist",
+    "dev": "babel src --watch --out-dir dist"
+  },
+  "keywords": [
+    "reactjs",
+    "react",
+    "resize"
+  ],
+  "author": "bytefunc <bytefunc@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "hammerjs": "^2.0.8",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "rimraf": "^2.5.4"
+  }
+}
