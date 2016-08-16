@@ -2,7 +2,7 @@
 this layout component is resizable layout using mouse or touch
 
 ## Demo
-![Demo](https://github.com/bytefunc/react-resize-layout/raw/master/screenshot/demo.png)
+![Demo](https://github.com/bytefunc/react-resize-layout/raw/master/screenshot/demo.gif)
 
 ## Example
 ```javascript
