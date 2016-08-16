@@ -27,7 +27,7 @@ ReactDOM.render(
          Horizon 3
        </ResizeHorizon>
     </Resize>,
-    document.getElementById('app')
+    document.getElementById('body')
 );
 
 // vertical
@@ -43,7 +43,7 @@ ReactDOM.render(
          Vertical 3
        </ResizeVertical>
     </Resize>,
-    document.getElementById('app')
+    document.getElementById('body')
 );
 
 
@@ -70,10 +70,12 @@ ReactDOM.render(
          Vertical 2
        </ResizeVertical>
     </Resize>,
-    document.getElementById('app')
+    document.getElementById('body')
 );
 
 ```
+
+### Example images
 
 |horizon|vertical|horizon and vertical|
 |---|---|---|
