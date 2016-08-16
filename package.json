@@ -1,6 +1,6 @@
 {
   "name": "react-resize-layout",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "this layout component is resizable layout using mouse or touch",
   "main": "dist/index.js",
   "scripts": {
