@@ -2,7 +2,10 @@
 This layout component resize HTML layout by moving the handle with mouse or touch
 
 ## Demo
+[View the Demo](https://bytefunc.github.io/react-resize-layout/demo/)
+
 ![Demo](https://github.com/bytefunc/react-resize-layout/raw/master/screenshot/demo.gif)
+
 
 ## Example
 ```javascript
