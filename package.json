@@ -13,6 +13,10 @@
     "resize"
   ],
   "author": "bytefunc <bytefunc@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bytefunc/react-resize-layout.git"
+  },
   "license": "MIT",
   "dependencies": {
     "hammerjs": "^2.0.8",
