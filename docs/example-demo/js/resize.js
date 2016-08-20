@@ -4197,14 +4197,14 @@ var Resize = exports.Resize = React.createClass({
             selection.collapse(document.body, 0);
         }
 
-        var $resize = document.querySelectorAll('.resize')[0];
+        var $resize = this.getResize();
         $resize.style.userSelect = 'none';
         $resize.style.WebkitUserSelect = 'none';
         $resize.style.MozUserSelect = 'none';
         $resize.style.MsUserSelect = 'none';
     },
     onUserSelect: function onUserSelect() {
-        var $resize = document.querySelectorAll('.resize')[0];
+        var $resize = this.getResize();
         $resize.style.userSelect = '';
         $resize.style.WebkitUserSelect = '';
         $resize.style.MozUserSelect = '';
@@ -4567,7 +4567,6 @@ var Resize = exports.Resize = React.createClass({
         if (type === 'vertical') {
             // resize style
             $resize.style.position = 'absolute';
-            // $resize.style.position = 'relative';
             $resize.style.top = '0';
             $resize.style.bottom = '0';
             $resize.style.left = '0';
@@ -4578,8 +4577,6 @@ var Resize = exports.Resize = React.createClass({
         } else if (type === 'horizon') {
             // resize style
             $resize.style.position = 'absolute';
-            // $resize.style.position = 'relative';
-            // $resize.style.height = '100%';
             $resize.style.top = '0';
             $resize.style.bottom = '0';
             $resize.style.left = '0';
