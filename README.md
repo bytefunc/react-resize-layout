@@ -2,20 +2,18 @@
 This layout component resize HTML layout by moving the handle with mouse or touch
 
 ## Demo
-[View the Demo](https://bytefunc.github.io/react-resize-layout/demo/)
+[View the demo page](https://bytefunc.github.io/react-resize-layout/demo/)
 
 ![Demo](https://github.com/bytefunc/react-resize-layout/raw/master/screenshot/demo.gif)
 
 
 ## Example
 ```javascript
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import {
-    Resize,
-    ResizeHorizon,
-    ResizeVertical
-} from 'react-resize-layout'
+var React          = require('react');
+var ReactDOM       = require('react-dom');
+var Resize         = require('react-resize-layout').Resize;
+var ResizeVertical = require('react-resize-layout').ResizeVertical;
+var ResizeHorizon  = require('react-resize-layout').ResizeHorizon;
 
 // horizon
 ReactDOM.render(
@@ -23,48 +21,48 @@ ReactDOM.render(
        <ResizeHorizon width="100px">
          Horizon 1
        </ResizeHorizon>
-       <ResizeHorizon width="200px">
+       <ResizeHorizon width="200px" minWidth="150px">
          Horizon 2
        </ResizeHorizon>
-       <ResizeHorizon>
+       <ResizeHorizon minWidth="5px">
          Horizon 3
        </ResizeHorizon>
     </Resize>,
-    document.getElementById('body')
+    document.getElementById('example')
 );
 
 // vertical
 ReactDOM.render(
     <Resize handleWidth="5px" handleColor="#777">
-       <ResizeVertical height="100px">
+       <ResizeVertical height="100px" minHeight="10px">
          Vertical 1
        </ResizeVertical>
        <ResizeVertical height="200px">
          Vertical 2
        </ResizeVertical>
-       <ResizeVertical>
+       <ResizeVertical minHeight="50px">
          Vertical 3
        </ResizeVertical>
     </Resize>,
-    document.getElementById('body')
+    document.getElementById('example2')
 );
 
 
 // horizon and vertical
 ReactDOM.render(
-    <Resize handleWidth="4px" handleColor="#000">
-       <ResizeVertical height="120px">
+    <Resize handleWidth="2px" handleColor="#000">
+       <ResizeVertical height="120px" minHeight="50px">
           Vertical 1
        </ResizeVertical>
-       <ResizeVertical height="160px">
-          <Resize handleWidth="6px" handleColor="red">
+       <ResizeVertical height="160px" minHeight="20px">
+          <Resize handleWidth="8px" handleColor="red">
              <ResizeHorizon width="90px">
                Horizon 1
              </ResizeHorizon>
              <ResizeHorizon width="120px">
                Horizon 2
              </ResizeHorizon>
-             <ResizeHorizon>
+             <ResizeHorizon minWidth="50px">
                Horizon 3
              </ResizeHorizon>
           </Resize>
@@ -73,16 +71,12 @@ ReactDOM.render(
          Vertical 2
        </ResizeVertical>
     </Resize>,
-    document.getElementById('body')
+    document.getElementById('example3')
 );
 
 ```
 
-### Example images
-
-|horizon|vertical|horizon and vertical|
-|---|---|---|
-|![](https://github.com/bytefunc/react-resize-layout/raw/master/screenshot/horizon.png)|![](https://github.com/bytefunc/react-resize-layout/raw/master/screenshot/vertical.png)|![](https://github.com/bytefunc/react-resize-layout/raw/master/screenshot/horizon&vertical.png)|
+[View the example demo page](https://bytefunc.github.io/react-resize-layout/example-demo/)
 
 
 
