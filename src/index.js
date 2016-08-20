@@ -45,7 +45,7 @@ export const Resize = React.createClass({
             selection.collapse(document.body, 0);
         }
 
-        const $resize = document.querySelectorAll('.resize')[0];
+        const $resize = this.getResize();
         $resize.style.userSelect       = 'none';
         $resize.style.WebkitUserSelect = 'none';
         $resize.style.MozUserSelect    = 'none';
@@ -53,7 +53,7 @@ export const Resize = React.createClass({
     },
 
     onUserSelect() {
-        const $resize = document.querySelectorAll('.resize')[0];
+        const $resize = this.getResize();
         $resize.style.userSelect       = '';
         $resize.style.WebkitUserSelect = '';
         $resize.style.MozUserSelect    = '';
