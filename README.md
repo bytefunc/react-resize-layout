@@ -78,7 +78,69 @@ ReactDOM.render(
 
 [View the example demo page](https://bytefunc.github.io/react-resize-layout/example-demo/)
 
+## Usage
+```javascript
+// 
+// When you use either <ResizeHorizon> or <ResizeVertical> component
+// 
 
+// work
+<Resize>
+   <ResizeHorizon>...</ResizeHorizon>
+   <ResizeHorizon>...</ResizeHorizon>
+</Resize>
+
+// don't work
+<Resize>
+   <ResizeHorizon>...</ResizeHorizon>
+   <ResizeVertical>...</ResizeVertical>
+</Resize>
+
+
+// don't work
+<Resize>
+   <ResizeHorizon>...</ResizeHorizon>
+   <ResizeHorizon>...</ResizeHorizon>
+   <div>...</div>
+</Resize>
+
+
+
+// 
+// When you use both <ResizeHorizon> and <ResizeVertical> component
+// 
+
+// work
+<Resize>
+   <ResizeHorizon>...</ResizeHorizon>
+   <ResizeHorizon>
+     <Resize>
+       <ResizeVertical>...</ResizeVertical>
+       <ResizeVertical>...</ResizeVertical>
+     </Resize>
+   </ResizeHorizon>
+</Resize>
+
+// don't work
+<Resize>
+   <ResizeHorizon>...</ResizeHorizon>
+   <ResizeHorizon>
+     <ResizeVertical>...</ResizeVertical>
+     <ResizeVertical>...</ResizeVertical>
+   </ResizeHorizon>
+</Resize>
+
+// don't work
+<Resize>
+   <ResizeHorizon>...</ResizeHorizon>
+   <Resize>
+      <ResizeVertical>...</ResizeVertical>
+      <ResizeVertical>...</ResizeVertical>
+   </Resize>
+   <ResizeHorizon>...</ResizeHorizon>
+</Resize>
+
+```
 
 ## API
 ### \<Resize\>
