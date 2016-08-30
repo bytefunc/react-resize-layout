@@ -1,5 +1,5 @@
 # react-resize-layout
-This layout component resize HTML layout at handle. moving the handle with mouse or touch
+This layout component resize HTML layout at handle. the handle can be moved with mouse or touch
 
 ## Demo
 [View the demo page](https://bytefunc.github.io/react-resize-layout/demo/)
