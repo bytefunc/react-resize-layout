@@ -45,19 +45,17 @@ export const Resize = React.createClass({
             selection.collapse(document.body, 0);
         }
 
-        const $resize = this.getResize();
-        $resize.style.userSelect       = 'none';
-        $resize.style.WebkitUserSelect = 'none';
-        $resize.style.MozUserSelect    = 'none';
-        $resize.style.MsUserSelect     = 'none';
+        document.body.style.userSelect       = 'none';
+        document.body.style.WebkitUserSelect = 'none';
+        document.body.style.MozUserSelect    = 'none';
+        document.body.style.MsUserSelect     = 'none';
     },
 
     onUserSelect() {
-        const $resize = this.getResize();
-        $resize.style.userSelect       = '';
-        $resize.style.WebkitUserSelect = '';
-        $resize.style.MozUserSelect    = '';
-        $resize.style.MsUserSelect     = '';
+        document.body.style.userSelect       = '';
+        document.body.style.WebkitUserSelect = '';
+        document.body.style.MozUserSelect    = '';
+        document.body.style.MsUserSelect     = '';
     },
 
     eventHandle() {
@@ -71,14 +69,15 @@ export const Resize = React.createClass({
         }
 
         for(var i = 0; i < $handle.length; i++) {
-            $handle[i].addEventListener('mousedown', this.stopUserSelect, false);
             const hammertime = new Hammer($handle[i]);
             hammertime.get('pan').set({ threshold: 1 });
 
             hammertime.on('panstart', (ev) => {
+                this.stopUserSelect();
                 this.state.onResizeStart(this.getResizeInf());
             });
             hammertime.on('panend', (ev) => {
+                this.onUserSelect();
                 this.state.onResizeStop(this.getResizeInf());
             });
             hammertime.on('panmove', (ev) => {
@@ -92,7 +91,6 @@ export const Resize = React.createClass({
                 }
             });
         }
-        document.addEventListener('mouseup', this.onUserSelect, false);
     },
 
     getResizeInf() {
