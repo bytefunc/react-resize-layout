@@ -40,15 +40,17 @@ export const Resize = React.createClass({
     },
 
     stopUserSelect() {
-        if (window.getSelection) {
-            const selection = window.getSelection();
-            selection.collapse(document.body, 0);
-        }
-
         document.body.style.userSelect       = 'none';
         document.body.style.WebkitUserSelect = 'none';
         document.body.style.MozUserSelect    = 'none';
         document.body.style.MsUserSelect     = 'none';
+    },
+
+    deselect() {
+        if (window.getSelection) {
+            const selection = window.getSelection();
+            selection.collapse(document.body, 0);
+        }
     },
 
     onUserSelect() {
@@ -74,13 +76,16 @@ export const Resize = React.createClass({
 
             hammertime.on('panstart', (ev) => {
                 this.stopUserSelect();
+                this.deselect();
                 this.state.onResizeStart(this.getResizeInf());
             });
             hammertime.on('panend', (ev) => {
                 this.onUserSelect();
+                this.deselect();
                 this.state.onResizeStop(this.getResizeInf());
             });
             hammertime.on('panmove', (ev) => {
+                this.deselect();
                 if (type ==='vertical') {
                     this.resizeVertical(ev);
                     this.state.onResizeMove(this.getResizeInf());
