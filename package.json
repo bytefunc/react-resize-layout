@@ -1,6 +1,6 @@
 {
   "name": "react-resize-layout",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "This layout component resizes HTML layout use a handle",
   "main": "dist/index.js",
   "scripts": {
