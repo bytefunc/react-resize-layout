@@ -1,7 +1,7 @@
 {
   "name": "react-resize-layout",
   "version": "0.1.5",
-  "description": "This layout component resizes HTML layout use a handle. the handle can be moved with a mouse or touch",
+  "description": "This layout component resizes HTML layout use a handle",
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && babel src --out-dir dist",
