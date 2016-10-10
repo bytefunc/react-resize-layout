@@ -81,6 +81,29 @@ export const Resize = React.createClass({
         return list;
     },
 
+    getResizeInf() {
+        const type = this.state.resizeType;
+        let childs = [];
+        if (type === 'vertical') {
+            const $vertical = this.getResizeElement('resize-vertical');
+            for(var i = 0; i < $vertical.length; i++) {
+                childs.push({height: $vertical[i].offsetHeight});
+            }
+        }
+        else if (type === 'horizon') {
+            const $horizon = this.getResizeElement('resize-horizon');
+            for(var i = 0; i < $horizon.length; i++) {
+                childs.push({width: $horizon[i].offsetWidth});
+            }
+        }
+
+        return {
+            type: type,
+            resizeId: this.state.resizeId,
+            resizeChilds: childs,
+        };
+    },
+
     stopUserSelect() {
         document.body.style.userSelect       = 'none';
         document.body.style.WebkitUserSelect = 'none';
@@ -140,42 +163,14 @@ export const Resize = React.createClass({
         }
     },
 
-    getResizeInf() {
-        const type = this.state.resizeType;
-        let childs = [];
-        if (type === 'vertical') {
-            const $vertical = this.getResizeElement('resize-vertical');
-            for(var i = 0; i < $vertical.length; i++) {
-                childs.push({height: $vertical[i].offsetHeight});
-            }
-        }
-        else if (type === 'horizon') {
-            const $horizon = this.getResizeElement('resize-horizon');
-            for(var i = 0; i < $horizon.length; i++) {
-                childs.push({width: $horizon[i].offsetWidth});
-            }
-        }
-
-        return {
-            type: type,
-            resizeId: this.state.resizeId,
-            resizeChilds: childs,
-        };
-    },
-
     initialVertical($resize, $vertical) {
         const handleHeight = parseInt(this.state.handleWidth);
         const handleColor  = this.state.handleColor;
         let sumHeight = 0;
 
         for(var i = 0; i < $vertical.length; i++) {
-            // vertical style
-            const height    = $vertical[i].getAttribute('data-height');
+            // vertical
             const minHeight = $vertical[i].getAttribute('data-min-height');
-            const overflow  = $vertical[i].getAttribute('data-overflow');
-            $vertical[i].style.overflow = overflow;
-            $vertical[i].style.height   = height + 'px';
-            $vertical[i].style.position = 'relative';
             $vertical[i].setAttribute('min-height', minHeight);
 
             // handle style
@@ -317,15 +312,8 @@ export const Resize = React.createClass({
         let sumWidth = 0;
 
         for(var i = 0; i < $horizon.length; i++) {
-            // horizon style
-            const width    = $horizon[i].getAttribute('data-width');
+            // horizon
             const minWidth = $horizon[i].getAttribute('data-min-width');
-            const overflow = $horizon[i].getAttribute('data-overflow');
-            $horizon[i].style.overflow = overflow;
-            $horizon[i].style.width    = width + 'px';
-            $horizon[i].style.height   = '100%';
-            $horizon[i].style.float    = 'left';
-            $horizon[i].style.position = 'relative';
             $horizon[i].setAttribute('min-width', minWidth);
 
             // handle style
@@ -469,25 +457,10 @@ export const Resize = React.createClass({
         if (!$resize || $vertical.length === 0 && $horizon.length === 0) return;
 
         if (type ==='vertical') {
-            // resize style
-            $resize.style.position = 'absolute';
-            $resize.style.top      = '0';
-            $resize.style.bottom   = '0';
-            $resize.style.left     = '0';
-            $resize.style.right    = '0';
-
             this.initialVertical($resize, $vertical);
             this.eventHandle();
         }
         else if (type ==='horizon') {
-            // resize style
-            $resize.style.position = 'absolute';
-            $resize.style.top      = '0';
-            $resize.style.bottom   = '0';
-            $resize.style.left     = '0';
-            $resize.style.right    = '0';
-            $resize.style.overflow = 'hidden';
-
             this.initialHorizon($resize, $horizon);
             this.eventHandle();
         }
@@ -496,7 +469,6 @@ export const Resize = React.createClass({
     componentDidMount() {
         this.initialResize();
         const type = this.state.resizeType;
-
         if (type ==='vertical') {
             window.addEventListener('resize', this.windowResizeVertical);
         }
@@ -507,8 +479,6 @@ export const Resize = React.createClass({
 
     componentWillUnmount() {
         const type = this.state.resizeType;
-
-        const $resize = this.getResizeElement('resize');
         if (type ==='vertical') {
             window.removeEventListener('resize', this.windowResizeVertical);
         }
@@ -526,8 +496,22 @@ export const Resize = React.createClass({
     },
 
     render() {
-        const id = this.state.resizeId;
-        return <div className="resize" data-resize-id={id}>{this.props.children}</div>;
+        const id   = this.state.resizeId;
+        const type = this.state.resizeType;
+
+        // resize style
+        let style = {
+            position: 'absolute',
+            top: '0',
+            bottom: '0',
+            left: '0',
+            right: '0',
+        };
+        if (type ==='horizon') {
+            style.overflow = 'hidden';
+        }
+
+        return <div className="resize" data-resize-id={id} style={style}>{this.props.children}</div>;
     }
 });
 
@@ -539,11 +523,16 @@ export const ResizeVertical = React.createClass({
         const minHeight = (this.props.minHeight)? this.props.minHeight: '0';
         const overflow  = (this.props.overflow)?  this.props.overflow: 'hidden';
 
+        const style = {
+            position: 'relative',
+            height: parseInt(height) + 'px',
+            overflow: overflow,
+        };
+
         return <div id={id}
                     className={"resize-vertical "+className}
-                    data-height={parseInt(height)}
                     data-min-height={parseInt(minHeight)}
-                    data-overflow={overflow}>
+                    style={style} >
                     {this.props.children}
                 </div>;
     }
@@ -557,11 +546,18 @@ export const ResizeHorizon = React.createClass({
         const minWidth  = (this.props.minWidth)?  this.props.minWidth: '0';
         const overflow  = (this.props.overflow)?  this.props.overflow: 'hidden';
 
+        const style = {
+            position: 'relative',
+            height: '100%',
+            width: parseInt(width) + 'px',
+            float: 'left',
+            overflow: overflow,
+        };
+
         return <div id={id}
                     className={"resize-horizon "+className}
-                    data-width={parseInt(width)}
                     data-min-width={parseInt(minWidth)}
-                    data-overflow={overflow}>
+                    style={style} >
                     {this.props.children}
                 </div>;
     }
