@@ -11,6 +11,48 @@ function createId() {
 var getResizeId = createId();
 
 export const Resize = React.createClass({
+    getInitialState() {
+        return {
+            resizeType: '',
+            resizeId: getResizeId(),
+            handleWidth: '5px',
+            handleColor: '#999',
+            onResizeStart:  function () {},
+            onResizeStop:  function () {},
+            onResizeMove:  function () {},
+            onResizeWindow:  function () {},
+        };
+    },
+
+    updateState(props) {
+        const handleWidth    = props.handleWidth? props.handleWidth: this.state.handleWidth;
+        const handleColor    = props.handleColor? props.handleColor: this.state.handleColor;
+        const onResizeStart  = props.onResizeStart? props.onResizeStart: this.state.onResizeStart;
+        const onResizeStop   = props.onResizeStop? props.onResizeStop: this.state.onResizeStop;
+        const onResizeMove   = props.onResizeMove? props.onResizeMove: this.state.onResizeMove;
+        const onResizeWindow = props.onResizeWindow? props.onResizeWindow: this.state.onResizeWindow;
+
+        let resizeType = this.state.resizeType;
+        if (props.children.length > 0) {
+            if (props.children[0].type.displayName === 'ResizeHorizon') {
+                resizeType = 'horizon';
+            }
+            else if (props.children[0].type.displayName === 'ResizeVertical') {
+                resizeType = 'vertical';
+            }
+        }
+
+        this.setState({
+            resizeType: resizeType,
+            handleWidth: handleWidth,
+            handleColor: handleColor,
+            onResizeStart: onResizeStart,
+            onResizeStop: onResizeStop,
+            onResizeMove: onResizeMove,
+            onResizeWindow: onResizeWindow,
+        });
+    },
+
     getResize() {
         const $resize = document.querySelectorAll('.resize');
         const id = this.state.resizeId;
@@ -454,6 +496,7 @@ export const Resize = React.createClass({
     componentDidMount() {
         this.initialResize();
         const type = this.state.resizeType;
+
         if (type ==='vertical') {
             window.addEventListener('resize', this.windowResizeVertical);
         }
@@ -464,6 +507,8 @@ export const Resize = React.createClass({
 
     componentWillUnmount() {
         const type = this.state.resizeType;
+
+        const $resize = this.getResizeElement('resize');
         if (type ==='vertical') {
             window.removeEventListener('resize', this.windowResizeVertical);
         }
@@ -472,34 +517,12 @@ export const Resize = React.createClass({
         }
     },
 
-    getInitialState() {
-        const handleWidth    = this.props.handleWidth? this.props.handleWidth: '5px';
-        const handleColor    = this.props.handleColor? this.props.handleColor: '#999';
-        const onResizeStart  = this.props.onResizeStart? this.props.onResizeStart: function () {};
-        const onResizeStop   = this.props.onResizeStop? this.props.onResizeStop: function () {};
-        const onResizeMove   = this.props.onResizeMove? this.props.onResizeMove: function () {};
-        const onResizeWindow = this.props.onResizeWindow? this.props.onResizeWindow: function () {};
+    componentWillMount() {
+        this.updateState(this.props);
+    },
 
-        let resizeType = '';
-        if (this.props.children.length > 0) {
-            if (this.props.children[0].type.displayName === 'ResizeHorizon') {
-                resizeType = 'horizon';
-            }
-            else if (this.props.children[0].type.displayName === 'ResizeVertical') {
-                resizeType = 'vertical';
-            }
-        }
-
-        return {
-            resizeType: resizeType,
-            resizeId: getResizeId(),
-            handleWidth: handleWidth,
-            handleColor: handleColor,
-            onResizeStart: onResizeStart,
-            onResizeStop: onResizeStop,
-            onResizeMove: onResizeMove,
-            onResizeWindow: onResizeWindow,
-        };
+    componentWillReceiveProps(nextProps) {
+        this.updateState(nextProps);
     },
 
     render() {
