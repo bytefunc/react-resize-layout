@@ -163,7 +163,17 @@ export const Resize = React.createClass({
         }
     },
 
-    initialVertical($resize, $vertical) {
+    initialVertical() {
+        const $resize   = this.getResizeElement('resize');
+        const $vertical = this.getResizeElement('resize-vertical');
+        if (!$resize || $vertical.length === 0) return;
+
+        // remove handle
+        const $handle = this.getResizeElement('resize-handle-vertical');
+        for(var i = 0; i < $handle.length; i++) {
+            $handle[i].parentNode.removeChild($handle[i]);
+        }
+
         const handleHeight = parseInt(this.state.handleWidth);
         const handleColor  = this.state.handleColor;
         let sumHeight = 0;
@@ -306,7 +316,17 @@ export const Resize = React.createClass({
         this.state.onResizeWindow(this.getResizeInf());
     },
 
-    initialHorizon($resize, $horizon) {
+    initialHorizon() {
+        const $resize  = this.getResizeElement('resize');
+        const $horizon = this.getResizeElement('resize-horizon');
+        if (!$resize || $horizon.length === 0) return;
+
+        // remove handle
+        const $handle = this.getResizeElement('resize-handle-horizon');
+        for(var i = 0; i < $handle.length; i++) {
+            $handle[i].parentNode.removeChild($handle[i]);
+        }
+
         const handleWidth = parseInt(this.state.handleWidth);
         const handleColor = this.state.handleColor;
         let sumWidth = 0;
@@ -450,19 +470,16 @@ export const Resize = React.createClass({
     },
 
     initialResize() {
-        const type      = this.state.resizeType;
-        const $resize   = this.getResizeElement('resize');
-        const $vertical = this.getResizeElement('resize-vertical');
-        const $horizon  = this.getResizeElement('resize-horizon');
-        if (!$resize || $vertical.length === 0 && $horizon.length === 0) return;
-
+        const type = this.state.resizeType;
         if (type ==='vertical') {
-            this.initialVertical($resize, $vertical);
+            this.initialVertical();
             this.eventHandle();
+            this.windowResizeVertical();
         }
         else if (type ==='horizon') {
-            this.initialHorizon($resize, $horizon);
+            this.initialHorizon();
             this.eventHandle();
+            this.windowResizeHorizon();
         }
     },
 
@@ -493,6 +510,10 @@ export const Resize = React.createClass({
 
     componentWillReceiveProps(nextProps) {
         this.updateState(nextProps);
+    },
+
+    componentDidUpdate() {
+        this.initialResize();
     },
 
     render() {
