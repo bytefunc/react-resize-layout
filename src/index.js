@@ -75,7 +75,9 @@ export const Resize = React.createClass({
         let list = [];
         for (var i = 0; i < $child.length; i++) {
             if ($child[i].classList.contains(className)) {
-                list.push($child[i]);
+                if ($child[i].getAttribute('data-show') != 'none') {
+                    list.push($child[i]);
+                }
             }
         }
         return list;
@@ -210,8 +212,9 @@ export const Resize = React.createClass({
         if (!$resize || $vertical.length === 0 || $handle.length === 0) return;
 
         const direction = (e.velocityY > 0)? 'down':'up';
-        let $prev = e.target.previousElementSibling;
-        let $next = e.target.nextElementSibling;
+        const indx_hand = $handle.indexOf(e.target);
+        let $prev = $vertical[indx_hand];
+        let $next = $vertical[indx_hand+1];
         let prevMinHeight = parseInt($prev.getAttribute('min-height'));
         let nextMinHeight = parseInt($next.getAttribute('min-height'));
 
@@ -285,7 +288,12 @@ export const Resize = React.createClass({
         const $resize   = this.getResizeElement('resize');
         const $vertical = this.getResizeElement('resize-vertical');
         const $handle   = this.getResizeElement('resize-handle-vertical');
-        if (!$resize || $vertical.length === 0 || $handle.length === 0) return;
+        if (!$resize || $vertical.length === 0) return;
+
+        if ($vertical.length === 1) {
+            $vertical[0].style.height = $resize.offsetHeight + 'px';
+            return;
+        }
 
         let sum    = 0;
         let remain = 0;
@@ -364,8 +372,9 @@ export const Resize = React.createClass({
         if (!$resize || $horizon.length === 0 || $handle.length === 0) return;
 
         const direction = (e.velocityX > 0)? 'right':'left';
-        let $prev = e.target.previousElementSibling;
-        let $next = e.target.nextElementSibling;
+        const indx_hand = $handle.indexOf(e.target);
+        let $prev = $horizon[indx_hand];
+        let $next = $horizon[indx_hand+1];
         let prevMinWidth = parseInt($prev.getAttribute('min-width'));
         let nextMinWidth = parseInt($next.getAttribute('min-width'));
 
@@ -543,16 +552,23 @@ export const ResizeVertical = React.createClass({
         const height    = (this.props.height)?    this.props.height: '0';
         const minHeight = (this.props.minHeight)? this.props.minHeight: '0';
         const overflow  = (this.props.overflow)?  this.props.overflow: 'hidden';
+        const show      = (this.props.show == false || 
+                           this.props.show == 'false' || 
+                           this.props.show == 'off' || 
+                           this.props.show == 'none')? 'none': 'block';
 
         const style = {
             position: 'relative',
             height: parseInt(height) + 'px',
             overflow: overflow,
+            display: show,
         };
 
         return <div id={id}
                     className={"resize-vertical "+className}
+                    data-height={height}
                     data-min-height={parseInt(minHeight)}
+                    data-show={show}
                     style={style} >
                     {this.props.children}
                 </div>;
@@ -566,6 +582,10 @@ export const ResizeHorizon = React.createClass({
         const width     = (this.props.width)?     this.props.width: '0';
         const minWidth  = (this.props.minWidth)?  this.props.minWidth: '0';
         const overflow  = (this.props.overflow)?  this.props.overflow: 'hidden';
+        const show      = (this.props.show == false || 
+                           this.props.show == 'false' || 
+                           this.props.show == 'off' || 
+                           this.props.show == 'none')? 'none': 'block';
 
         const style = {
             position: 'relative',
@@ -573,11 +593,13 @@ export const ResizeHorizon = React.createClass({
             width: parseInt(width) + 'px',
             float: 'left',
             overflow: overflow,
+            display: show,
         };
 
         return <div id={id}
                     className={"resize-horizon "+className}
                     data-min-width={parseInt(minWidth)}
+                    data-show={show}
                     style={style} >
                     {this.props.children}
                 </div>;
