@@ -17,10 +17,10 @@ export const Resize = React.createClass({
             resizeId: getResizeId(),
             handleWidth: '5px',
             handleColor: '#999',
-            onResizeStart:  function () {},
-            onResizeStop:  function () {},
-            onResizeMove:  function () {},
-            onResizeWindow:  function () {},
+            onResizeStart: function () {},
+            onResizeStop: function () {},
+            onResizeMove: function () {},
+            onResizeWindow: function () {},
         };
     },
 
