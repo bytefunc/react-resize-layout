@@ -1,17 +1,14 @@
 {
   "name": "react-resize-layout",
   "version": "0.1.7",
-  "description": "This layout component resizes HTML layout use a handle",
+  "description":
+    "This react component resizes the layout size of HTML using a handle",
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && babel src --out-dir dist",
     "dev": "babel src --watch --out-dir dist"
   },
-  "keywords": [
-    "reactjs",
-    "react",
-    "resize"
-  ],
+  "keywords": ["reactjs", "react", "resize"],
   "author": "bytefunc <bytefunc@gmail.com>",
   "repository": {
     "type": "git",
