@@ -1,5 +1,7 @@
 node_modules
 src
-npm-debug.log
+yarn.lock
 screenshot
 docs
+.gitignore
+.prettierrc
