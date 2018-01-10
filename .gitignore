@@ -1,3 +1,5 @@
 node_modules
 dist
 yarn.lock
+docs/demo/node_modules
+docs/demo/node_modules/yarn.lock
