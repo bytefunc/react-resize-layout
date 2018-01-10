@@ -27,10 +27,11 @@ export class Resize extends Component {
         this.updateState = this.updateState.bind(this);
         this.getResize = this.getResize.bind(this);
         this.getResizeInf = this.getResizeInf.bind(this);
+        this.moveHandleMouseStyle = this.moveHandleMouseStyle.bind(this);
+        this.eventHandle = this.eventHandle.bind(this);
         this.initialResize = this.initialResize.bind(this);
         this.initialVertical = this.initialVertical.bind(this);
         this.initialHorizon = this.initialHorizon.bind(this);
-        this.eventHandle = this.eventHandle.bind(this);
 
         this.resizeVertical = this.resizeVertical.bind(this);
         this.resizeHorizon = this.resizeHorizon.bind(this);
@@ -151,6 +152,26 @@ export class Resize extends Component {
         document.body.style.MsUserSelect = "";
     }
 
+    endHandleMouseStyle() {
+        document.onmouseover = () => {};
+        Array.from(document.querySelectorAll(".react-resize-cursor"), ele => {
+            ele.style.cursor = ele.getAttribute("data-react-resize-cursor");
+            ele.removeAttribute("data-react-resize-cursor");
+            ele.classList.remove("react-resize-cursor");
+        });
+    }
+
+    moveHandleMouseStyle(e) {
+        const type = this.state.resizeType;
+        const ele = e.target;
+        if (!ele.classList.contains("react-resize-cursor")) {
+            const cursor = ele.style.cursor ? ele.style.cursor : "";
+            ele.setAttribute("data-react-resize-cursor", cursor);
+            ele.classList.add("react-resize-cursor");
+            ele.style.cursor = type === "vertical" ? "s-resize" : "w-resize";
+        }
+    }
+
     eventHandle() {
         const type = this.state.resizeType;
         let $handle = [];
@@ -170,11 +191,13 @@ export class Resize extends Component {
                 this.state.onResizeStart(this.getResizeInf());
             });
             hammertime.on("panend", ev => {
+                this.endHandleMouseStyle();
                 this.onUserSelect();
                 this.deselect();
                 this.state.onResizeStop(this.getResizeInf());
             });
             hammertime.on("panmove", ev => {
+                document.onmouseover = this.moveHandleMouseStyle;
                 this.deselect();
                 if (type === "vertical") {
                     this.resizeVertical(ev);
