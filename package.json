@@ -2,7 +2,7 @@
     "name": "react-resize-layout",
     "version": "0.2.1",
     "description":
-        "This react component resizes the layout size of HTML using a handle",
+        "This react component resize the layout of HTML using a handle",
     "main": "dist/index.js",
     "scripts": {
         "build": "rimraf dist && babel src --out-dir dist",

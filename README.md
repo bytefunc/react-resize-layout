@@ -1,6 +1,6 @@
 # react-resize-layout
 
-This react component resizes the layout size of HTML using a handle
+This react component resize the layout of HTML using a handle
 
 ## Demo
 
