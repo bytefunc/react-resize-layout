@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Hammer from "hammerjs";
 
+// generate <resize> component unique id
 function createId() {
     var id = -1;
     return function() {
@@ -10,14 +11,18 @@ function createId() {
 }
 var getResizeId = createId();
 
+// default handle style
+const default_handle_width = "5px";
+const default_handle_color = "#999";
+
 export class Resize extends Component {
     constructor(props) {
         super(props);
         this.state = {
             resizeType: "",
             resizeId: getResizeId(),
-            handleWidth: "5px",
-            handleColor: "#999",
+            handleWidth: default_handle_width,
+            handleColor: default_handle_color,
             onResizeStart: function() {},
             onResizeStop: function() {},
             onResizeMove: function() {},
