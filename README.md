@@ -12,6 +12,14 @@ This react component resizes the layout size of HTML using a handle
 
 [View the example demo page](https://bytefunc.github.io/react-resize-layout/example-demo/)
 
+```
+npm install --save react-resize-layout react react-dom
+
+or
+
+yarn add react-resize-layout react react-dom
+```
+
 ```javascript
 import React from "react";
 import { render } from "react-dom";
