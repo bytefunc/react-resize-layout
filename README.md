@@ -10,6 +10,8 @@ This react component resizes the layout size of HTML using a handle
 
 ## Example
 
+[View the example demo page](https://bytefunc.github.io/react-resize-layout/example-demo/)
+
 ```javascript
 import React from "react";
 import { render } from "react-dom";
@@ -57,8 +59,6 @@ render(
     document.getElementById("example3")
 );
 ```
-
-[View the example demo page](https://bytefunc.github.io/react-resize-layout/example-demo/)
 
 ## Usage
 
