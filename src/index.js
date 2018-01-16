@@ -537,7 +537,7 @@ export class Resize extends Component {
         } else if (remain < 0) {
             for (var i = $horizon.length - 1; 0 <= i; i--) {
                 var min_width = parseInt($horizon[i].getAttribute("min-width"));
-                remain += $horizon[i].offsetWidth - min_width - 1;
+                remain += $horizon[i].offsetWidth - min_width;
                 0;
 
                 if (remain >= 0) {
