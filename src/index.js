@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import Hammer from "hammerjs";
 
 // generate <resize> component unique id
@@ -15,7 +15,7 @@ var getResizeId = createId();
 const default_handle_width = "5px";
 const default_handle_color = "#999";
 
-export class Resize extends Component {
+class Resize extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -66,9 +66,9 @@ export class Resize extends Component {
 
         let resizeType = this.state.resizeType;
         if (props.children.length > 0) {
-            if (props.children[0].type.name === "ResizeHorizon") {
+            if (props.children[0].type.myName === "ResizeHorizon") {
                 resizeType = "horizon";
-            } else if (props.children[0].type.name === "ResizeVertical") {
+            } else if (props.children[0].type.myName === "ResizeVertical") {
                 resizeType = "vertical";
             }
         }
@@ -221,9 +221,9 @@ export class Resize extends Component {
         if (!$resize || $vertical.length === 0) return;
 
         // remove handle
-        const $handle = this.getResizeElement("resize-handle-vertical");
-        for (var i = 0; i < $handle.length; i++) {
-            $handle[i].parentNode.removeChild($handle[i]);
+        const $handleVertical = this.getResizeElement("resize-handle-vertical");
+        for (var i = 0; i < $handleVertical.length; i++) {
+            $handleVertical[i].parentNode.removeChild($handleVertical[i]);
         }
 
         const handleHeight = parseInt(this.state.handleWidth);
@@ -392,9 +392,9 @@ export class Resize extends Component {
         if (!$resize || $horizon.length === 0) return;
 
         // remove handle
-        const $handle = this.getResizeElement("resize-handle-horizon");
-        for (var i = 0; i < $handle.length; i++) {
-            $handle[i].parentNode.removeChild($handle[i]);
+        const $handleHorizon = this.getResizeElement("resize-handle-horizon");
+        for (var i = 0; i < $handleHorizon.length; i++) {
+            $handleHorizon[i].parentNode.removeChild($handleHorizon[i]);
         }
 
         const handleWidth = parseInt(this.state.handleWidth);
@@ -619,7 +619,7 @@ export class Resize extends Component {
     }
 }
 
-export class ResizeVertical extends Component {
+class ResizeVertical extends React.Component {
     render() {
         const id = this.props.id ? this.props.id : "";
         const className = this.props.className ? this.props.className : "";
@@ -656,7 +656,7 @@ export class ResizeVertical extends Component {
     }
 }
 
-export class ResizeHorizon extends Component {
+class ResizeHorizon extends React.Component {
     render() {
         const id = this.props.id ? this.props.id : "";
         const className = this.props.className ? this.props.className : "";
@@ -692,4 +692,13 @@ export class ResizeHorizon extends Component {
             </div>
         );
     }
+}
+
+ResizeVertical.myName = 'ResizeVertical';
+ResizeHorizon.myName = 'ResizeHorizon';
+
+export { 
+    Resize,
+    ResizeHorizon,
+    ResizeVertical,
 }
