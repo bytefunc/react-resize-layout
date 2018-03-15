@@ -138,9 +138,9 @@ export class Resize extends Component {
 
     stopUserSelect() {
         document.body.style.userSelect = "none";
-        document.body.style.WebkitUserSelect = "none";
-        document.body.style.MozUserSelect = "none";
-        document.body.style.MsUserSelect = "none";
+        document.body.style.webkitUserSelect = "none";
+        document.body.style.mozUserSelect = "none";
+        document.body.style.msUserSelect = "none";
     }
 
     deselect() {
@@ -152,9 +152,9 @@ export class Resize extends Component {
 
     onUserSelect() {
         document.body.style.userSelect = "";
-        document.body.style.WebkitUserSelect = "";
-        document.body.style.MozUserSelect = "";
-        document.body.style.MsUserSelect = "";
+        document.body.style.webkitUserSelect = "";
+        document.body.style.mozUserSelect = "";
+        document.body.style.msUserSelect = "";
     }
 
     endHandleMouseStyle() {
