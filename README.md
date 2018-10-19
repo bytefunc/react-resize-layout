@@ -114,8 +114,8 @@ render(
 | :-------- | -----: | :-----------------------------------------------------: |
 | id        | string |        Set the id of the ResizeHorizon component        |
 | className | string |    Set the className of the ResizeHorizon component     |
-| width     | string |     Set the width px of the ResizeHorizon component     |
-| minWidth  | string | Set the minimum width px of the ResizeHorizon component |
+| width     | string |     Set the width of the ResizeHorizon component        |
+| minWidth  | string | Set the minimum width of the ResizeHorizon component    |
 | overflow  | string |  Set the css overflow property. default value "hidden"  |
 
 ### \<ResizeVertical\>
@@ -124,8 +124,8 @@ render(
 | :-------- | -----: | :-------------------------------------------------------: |
 | id        | string |        Set the id of the ResizeVertical component         |
 | className | string |     Set the className of the ResizeVertical component     |
-| height    | string |     Set the height px of the ResizeVertical component     |
-| minHeight | string | Set the minimum height px of the ResizeVertical component |
+| height    | string |     Set the height of the ResizeVertical component        |
+| minHeight | string | Set the minimum height of the ResizeVertical component    |
 | overflow  | string |   Set the css overflow property. default value "hidden"   |
 
 ## License
