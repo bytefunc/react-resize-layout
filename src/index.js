@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Hammer from "hammerjs";
 
 // generate <resize> component unique id
@@ -636,7 +636,7 @@ class ResizeVertical extends React.Component {
 
         const style = {
             position: "relative",
-            height: parseInt(height) + "px",
+            height: height,
             overflow: overflow,
             display: show
         };
@@ -646,7 +646,7 @@ class ResizeVertical extends React.Component {
                 id={id}
                 className={"resize-vertical " + className}
                 data-height={height}
-                data-min-height={parseInt(minHeight)}
+                data-min-height={minHeight}
                 data-show={show}
                 style={style}
             >
@@ -674,7 +674,7 @@ class ResizeHorizon extends React.Component {
         const style = {
             position: "relative",
             height: "100%",
-            width: parseInt(width) + "px",
+            width: width,
             float: "left",
             overflow: overflow,
             display: show
@@ -684,7 +684,7 @@ class ResizeHorizon extends React.Component {
             <div
                 id={id}
                 className={"resize-horizon " + className}
-                data-min-width={parseInt(minWidth)}
+                data-min-width={minWidth}
                 data-show={show}
                 style={style}
             >
@@ -697,7 +697,7 @@ class ResizeHorizon extends React.Component {
 ResizeVertical.myName = 'ResizeVertical';
 ResizeHorizon.myName = 'ResizeHorizon';
 
-export { 
+export {
     Resize,
     ResizeHorizon,
     ResizeVertical,
