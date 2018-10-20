@@ -3,13 +3,13 @@ import Hammer from "hammerjs";
 
 // generate <resize> component unique id
 function createId() {
-    var id = -1;
-    return function() {
+    let id = -1;
+    return function () {
         id = id + 1;
         return id;
     };
 }
-var getResizeId = createId();
+const getResizeId = createId();
 
 // default handle style
 const default_handle_width = "5px";
@@ -88,7 +88,7 @@ class Resize extends React.Component {
         const $resize = document.querySelectorAll(".resize");
         const id = this.state.resizeId;
         let index = -1;
-        for (var i = 0; i < $resize.length; i++) {
+        for (let i = 0; i < $resize.length; i++) {
             if (id == $resize[i].getAttribute("data-resize-id")) {
                 index = i;
             }
@@ -104,7 +104,7 @@ class Resize extends React.Component {
 
         const $child = $resize.childNodes;
         let list = [];
-        for (var i = 0; i < $child.length; i++) {
+        for (let i = 0; i < $child.length; i++) {
             if ($child[i].classList.contains(className)) {
                 if ($child[i].getAttribute("data-show") != "none") {
                     list.push($child[i]);
@@ -119,12 +119,12 @@ class Resize extends React.Component {
         let childs = [];
         if (type === "vertical") {
             const $vertical = this.getResizeElement("resize-vertical");
-            for (var i = 0; i < $vertical.length; i++) {
+            for (let i = 0; i < $vertical.length; i++) {
                 childs.push({ height: $vertical[i].getBoundingClientRect().height });
             }
         } else if (type === "horizon") {
             const $horizon = this.getResizeElement("resize-horizon");
-            for (var i = 0; i < $horizon.length; i++) {
+            for (let i = 0; i < $horizon.length; i++) {
                 childs.push({ width: $horizon[i].getBoundingClientRect().width });
             }
         }
@@ -186,7 +186,7 @@ class Resize extends React.Component {
             $handle = this.getResizeElement("resize-handle-horizon");
         }
 
-        for (var i = 0; i < $handle.length; i++) {
+        for (let i = 0; i < $handle.length; i++) {
             const hammertime = new Hammer($handle[i]);
             hammertime.get("pan").set({ threshold: 1 });
 
@@ -222,7 +222,7 @@ class Resize extends React.Component {
 
         // remove handle
         const $handleVertical = this.getResizeElement("resize-handle-vertical");
-        for (var i = 0; i < $handleVertical.length; i++) {
+        for (let i = 0; i < $handleVertical.length; i++) {
             $handleVertical[i].parentNode.removeChild($handleVertical[i]);
         }
 
@@ -230,7 +230,7 @@ class Resize extends React.Component {
         const handleColor = this.state.handleColor;
         let sumHeight = 0;
 
-        for (var i = 0; i < $vertical.length; i++) {
+        for (let i = 0; i < $vertical.length; i++) {
             // vertical
             const minHeight = $vertical[i].getAttribute("data-min-height");
             $vertical[i].setAttribute("min-height", minHeight);
@@ -274,7 +274,7 @@ class Resize extends React.Component {
 
         if (direction === "up") {
             const indx_prev = $vertical.indexOf($prev);
-            for (var i = $vertical.length - 1; 0 <= i; i--) {
+            for (let i = $vertical.length - 1; 0 <= i; i--) {
                 if (indx_prev >= i) {
                     if ($prev.getBoundingClientRect().height <= prevMinHeight) {
                         $prev = $vertical[i];
@@ -286,7 +286,7 @@ class Resize extends React.Component {
             }
         } else if (direction === "down") {
             const indx_next = $vertical.indexOf($next);
-            for (var i = 0; i < $vertical.length; i++) {
+            for (let i = 0; i < $vertical.length; i++) {
                 if (indx_next <= i) {
                     if ($next.getBoundingClientRect().height <= nextMinHeight) {
                         $next = $vertical[i];
@@ -303,7 +303,7 @@ class Resize extends React.Component {
         let sumPrevHeight = 0;
         let sumHeight = 0;
         let flag = true;
-        for (var i = 0; i < $vertical.length; i++) {
+        for (let i = 0; i < $vertical.length; i++) {
             if (flag) {
                 if ($handle[i] === e.target) {
                     flag = false;
@@ -356,10 +356,10 @@ class Resize extends React.Component {
 
         let sum = 0;
         let remain = 0;
-        for (var i = 0; i < $vertical.length; i++) {
+        for (let i = 0; i < $vertical.length; i++) {
             sum += $vertical[i].getBoundingClientRect().height;
         }
-        for (var i = 0; i < $handle.length; i++) {
+        for (let i = 0; i < $handle.length; i++) {
             sum += $handle[i].getBoundingClientRect().height;
         }
         remain = $resize.getBoundingClientRect().height - sum;
@@ -369,7 +369,7 @@ class Resize extends React.Component {
             $vertical[last_idx].style.height =
                 remain + $vertical[last_idx].getBoundingClientRect().height + "px";
         } else if (remain < 0) {
-            for (var i = $vertical.length - 1; 0 <= i; i--) {
+            for (let i = $vertical.length - 1; 0 <= i; i--) {
                 var min_height = parseInt(
                     $vertical[i].getAttribute("min-height")
                 );
@@ -393,7 +393,7 @@ class Resize extends React.Component {
 
         // remove handle
         const $handleHorizon = this.getResizeElement("resize-handle-horizon");
-        for (var i = 0; i < $handleHorizon.length; i++) {
+        for (let i = 0; i < $handleHorizon.length; i++) {
             $handleHorizon[i].parentNode.removeChild($handleHorizon[i]);
         }
 
@@ -401,7 +401,7 @@ class Resize extends React.Component {
         const handleColor = this.state.handleColor;
         let sumWidth = 0;
 
-        for (var i = 0; i < $horizon.length; i++) {
+        for (let i = 0; i < $horizon.length; i++) {
             // horizon
             const minWidth = $horizon[i].getAttribute("data-min-width");
             $horizon[i].setAttribute("min-width", minWidth);
@@ -446,7 +446,7 @@ class Resize extends React.Component {
 
         if (direction === "left") {
             const indx_prev = $horizon.indexOf($prev);
-            for (var i = $horizon.length - 1; 0 <= i; i--) {
+            for (let i = $horizon.length - 1; 0 <= i; i--) {
                 if (indx_prev >= i) {
                     if ($prev.getBoundingClientRect().width <= prevMinWidth) {
                         $prev = $horizon[i];
@@ -458,7 +458,7 @@ class Resize extends React.Component {
             }
         } else if (direction === "right") {
             const indx_next = $horizon.indexOf($next);
-            for (var i = 0; i < $horizon.length; i++) {
+            for (let i = 0; i < $horizon.length; i++) {
                 if (indx_next <= i) {
                     if ($next.getBoundingClientRect().width <= nextMinWidth) {
                         $next = $horizon[i];
@@ -475,7 +475,7 @@ class Resize extends React.Component {
         let sumPrevWidth = 0;
         let sumWidth = 0;
         let flag = true;
-        for (var i = 0; i < $horizon.length; i++) {
+        for (let i = 0; i < $horizon.length; i++) {
             if (flag) {
                 if ($handle[i] === e.target) {
                     flag = false;
@@ -523,10 +523,10 @@ class Resize extends React.Component {
 
         let sum = 0;
         let remain = 0;
-        for (var i = 0; i < $horizon.length; i++) {
+        for (let i = 0; i < $horizon.length; i++) {
             sum += $horizon[i].getBoundingClientRect().width;
         }
-        for (var i = 0; i < $handle.length; i++) {
+        for (let i = 0; i < $handle.length; i++) {
             sum += $handle[i].getBoundingClientRect().width;
         }
         remain = $resize.getBoundingClientRect().width - sum;
@@ -535,7 +535,7 @@ class Resize extends React.Component {
             $horizon[$horizon.length - 1].style.width =
                 remain + $horizon[$horizon.length - 1].getBoundingClientRect().width + "px";
         } else if (remain < 0) {
-            for (var i = $horizon.length - 1; 0 <= i; i--) {
+            for (let i = $horizon.length - 1; 0 <= i; i--) {
                 var min_width = parseInt($horizon[i].getAttribute("min-width"));
                 remain += $horizon[i].getBoundingClientRect().width - min_width;
                 0;
