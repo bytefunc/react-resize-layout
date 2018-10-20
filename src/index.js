@@ -23,10 +23,10 @@ class Resize extends React.Component {
             resizeId: getResizeId(),
             handleWidth: default_handle_width,
             handleColor: default_handle_color,
-            onResizeStart: function() {},
-            onResizeStop: function() {},
-            onResizeMove: function() {},
-            onResizeWindow: function() {}
+            onResizeStart: function () { },
+            onResizeStop: function () { },
+            onResizeMove: function () { },
+            onResizeWindow: function () { }
         };
 
         this.updateState = this.updateState.bind(this);
@@ -158,7 +158,7 @@ class Resize extends React.Component {
     }
 
     endHandleMouseStyle() {
-        document.onmouseover = () => {};
+        document.onmouseover = () => { };
         Array.from(document.querySelectorAll(".react-resize-cursor"), ele => {
             ele.style.cursor = ele.getAttribute("data-react-resize-cursor");
             ele.removeAttribute("data-react-resize-cursor");
@@ -626,13 +626,10 @@ class ResizeVertical extends React.Component {
         const height = this.props.height ? this.props.height : "0";
         const minHeight = this.props.minHeight ? this.props.minHeight : "0";
         const overflow = this.props.overflow ? this.props.overflow : "hidden";
-        const show =
-            this.props.show == false ||
+        const show = this.props.show == false ||
             this.props.show == "false" ||
             this.props.show == "off" ||
-            this.props.show == "none"
-                ? "none"
-                : "block";
+            this.props.show == "none" ? "none" : "block";
 
         const style = {
             position: "relative",
@@ -663,13 +660,10 @@ class ResizeHorizon extends React.Component {
         const width = this.props.width ? this.props.width : "0";
         const minWidth = this.props.minWidth ? this.props.minWidth : "0";
         const overflow = this.props.overflow ? this.props.overflow : "hidden";
-        const show =
-            this.props.show == false ||
+        const show = this.props.show == false ||
             this.props.show == "false" ||
             this.props.show == "off" ||
-            this.props.show == "none"
-                ? "none"
-                : "block";
+            this.props.show == "none" ? "none" : "block";
 
         const style = {
             position: "relative",
