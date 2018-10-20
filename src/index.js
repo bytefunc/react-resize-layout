@@ -120,12 +120,12 @@ class Resize extends React.Component {
         if (type === "vertical") {
             const $vertical = this.getResizeElement("resize-vertical");
             for (var i = 0; i < $vertical.length; i++) {
-                childs.push({ height: $vertical[i].offsetHeight });
+                childs.push({ height: $vertical[i].getBoundingClientRect().height });
             }
         } else if (type === "horizon") {
             const $horizon = this.getResizeElement("resize-horizon");
             for (var i = 0; i < $horizon.length; i++) {
-                childs.push({ width: $horizon[i].offsetWidth });
+                childs.push({ width: $horizon[i].getBoundingClientRect().width });
             }
         }
 
@@ -251,11 +251,11 @@ class Resize extends React.Component {
             }
 
             if ($vertical.length - 1 != i) {
-                sumHeight += $vertical[i].offsetHeight;
+                sumHeight += $vertical[i].getBoundingClientRect().height;
             }
         }
         $vertical[$vertical.length - 1].style.height =
-            $resize.offsetHeight - sumHeight + "px";
+            $resize.getBoundingClientRect().height - sumHeight + "px";
     }
 
     resizeVertical(e) {
@@ -276,7 +276,7 @@ class Resize extends React.Component {
             const indx_prev = $vertical.indexOf($prev);
             for (var i = $vertical.length - 1; 0 <= i; i--) {
                 if (indx_prev >= i) {
-                    if ($prev.offsetHeight <= prevMinHeight) {
+                    if ($prev.getBoundingClientRect().height <= prevMinHeight) {
                         $prev = $vertical[i];
                         prevMinHeight = parseInt(
                             $prev.getAttribute("min-height")
@@ -288,7 +288,7 @@ class Resize extends React.Component {
             const indx_next = $vertical.indexOf($next);
             for (var i = 0; i < $vertical.length; i++) {
                 if (indx_next <= i) {
-                    if ($next.offsetHeight <= nextMinHeight) {
+                    if ($next.getBoundingClientRect().height <= nextMinHeight) {
                         $next = $vertical[i];
                         nextMinHeight = parseInt(
                             $next.getAttribute("min-height")
@@ -309,35 +309,35 @@ class Resize extends React.Component {
                     flag = false;
                 }
                 if ($vertical[i] != $prev) {
-                    sumPrevHeight += $vertical[i].offsetHeight;
-                    sumPrevHeight += $handle[i].offsetHeight;
+                    sumPrevHeight += $vertical[i].getBoundingClientRect().height;
+                    sumPrevHeight += $handle[i].getBoundingClientRect().height;
                 }
             }
 
             if ($vertical[i] !== $prev && $vertical[i] !== $next) {
-                sumHeight += $vertical[i].offsetHeight;
+                sumHeight += $vertical[i].getBoundingClientRect().height;
             }
 
             if ($handle[i]) {
-                sumHeight += $handle[i].offsetHeight;
+                sumHeight += $handle[i].getBoundingClientRect().height;
             }
         }
         prevHeight =
             e.center.y - sumPrevHeight - $resize.getBoundingClientRect().top;
-        nextHeight = $resize.offsetHeight - (sumHeight + prevHeight);
+        nextHeight = $resize.getBoundingClientRect().height - (sumHeight + prevHeight);
 
         if (prevHeight < prevMinHeight) prevHeight = prevMinHeight;
         if (nextHeight < nextMinHeight) nextHeight = nextMinHeight;
 
         if (direction === "down") {
-            prevHeight = $resize.offsetHeight - sumHeight - nextHeight;
+            prevHeight = $resize.getBoundingClientRect().height - sumHeight - nextHeight;
             if (prevHeight < prevMinHeight) prevHeight = prevMinHeight;
         } else if (direction === "up") {
-            nextHeight = $resize.offsetHeight - sumHeight - prevHeight;
+            nextHeight = $resize.getBoundingClientRect().height - sumHeight - prevHeight;
             if (nextHeight < nextMinHeight) nextHeight = nextMinHeight;
         }
 
-        if ($resize.offsetHeight === sumHeight + prevHeight + nextHeight) {
+        if ($resize.getBoundingClientRect().height === sumHeight + prevHeight + nextHeight) {
             $prev.style.height = prevHeight + "px";
             $next.style.height = nextHeight + "px";
         }
@@ -350,30 +350,30 @@ class Resize extends React.Component {
         if (!$resize || $vertical.length === 0) return;
 
         if ($vertical.length === 1) {
-            $vertical[0].style.height = $resize.offsetHeight + "px";
+            $vertical[0].style.height = $resize.getBoundingClientRect().height + "px";
             return;
         }
 
         let sum = 0;
         let remain = 0;
         for (var i = 0; i < $vertical.length; i++) {
-            sum += $vertical[i].offsetHeight;
+            sum += $vertical[i].getBoundingClientRect().height;
         }
         for (var i = 0; i < $handle.length; i++) {
-            sum += $handle[i].offsetHeight;
+            sum += $handle[i].getBoundingClientRect().height;
         }
-        remain = $resize.offsetHeight - sum;
+        remain = $resize.getBoundingClientRect().height - sum;
 
         if (remain > 0) {
             const last_idx = $vertical.length - 1;
             $vertical[last_idx].style.height =
-                remain + $vertical[last_idx].offsetHeight + "px";
+                remain + $vertical[last_idx].getBoundingClientRect().height + "px";
         } else if (remain < 0) {
             for (var i = $vertical.length - 1; 0 <= i; i--) {
                 var min_height = parseInt(
                     $vertical[i].getAttribute("min-height")
                 );
-                remain += $vertical[i].offsetHeight - min_height;
+                remain += $vertical[i].getBoundingClientRect().height - min_height;
 
                 if (remain >= 0) {
                     $vertical[i].style.height = remain + min_height + "px";
@@ -423,11 +423,11 @@ class Resize extends React.Component {
                 sumWidth += handleWidth;
             }
             if ($horizon.length - 1 != i) {
-                sumWidth += $horizon[i].offsetWidth;
+                sumWidth += $horizon[i].getBoundingClientRect().width;
             }
         }
         $horizon[$horizon.length - 1].style.width =
-            $resize.offsetWidth - sumWidth + "px";
+            $resize.getBoundingClientRect().width - sumWidth + "px";
     }
 
     resizeHorizon(e) {
@@ -448,7 +448,7 @@ class Resize extends React.Component {
             const indx_prev = $horizon.indexOf($prev);
             for (var i = $horizon.length - 1; 0 <= i; i--) {
                 if (indx_prev >= i) {
-                    if ($prev.offsetWidth <= prevMinWidth) {
+                    if ($prev.getBoundingClientRect().width <= prevMinWidth) {
                         $prev = $horizon[i];
                         prevMinWidth = parseInt(
                             $prev.getAttribute("min-width")
@@ -460,7 +460,7 @@ class Resize extends React.Component {
             const indx_next = $horizon.indexOf($next);
             for (var i = 0; i < $horizon.length; i++) {
                 if (indx_next <= i) {
-                    if ($next.offsetWidth <= nextMinWidth) {
+                    if ($next.getBoundingClientRect().width <= nextMinWidth) {
                         $next = $horizon[i];
                         nextMinWidth = parseInt(
                             $next.getAttribute("min-width")
@@ -481,35 +481,35 @@ class Resize extends React.Component {
                     flag = false;
                 }
                 if ($horizon[i] != $prev) {
-                    sumPrevWidth += $horizon[i].offsetWidth;
-                    sumPrevWidth += $handle[i].offsetWidth;
+                    sumPrevWidth += $horizon[i].getBoundingClientRect().width;
+                    sumPrevWidth += $handle[i].getBoundingClientRect().width;
                 }
             }
 
             if ($horizon[i] !== $prev && $horizon[i] !== $next) {
-                sumWidth += $horizon[i].offsetWidth;
+                sumWidth += $horizon[i].getBoundingClientRect().width;
             }
 
             if ($handle[i]) {
-                sumWidth += $handle[i].offsetWidth;
+                sumWidth += $handle[i].getBoundingClientRect().width;
             }
         }
         prevWidth =
             e.center.x - sumPrevWidth - $resize.getBoundingClientRect().left;
-        nextWidth = $resize.offsetWidth - (sumWidth + prevWidth);
+        nextWidth = $resize.getBoundingClientRect().width - (sumWidth + prevWidth);
 
         if (prevWidth < prevMinWidth) prevWidth = prevMinWidth;
         if (nextWidth < nextMinWidth) nextWidth = nextMinWidth;
 
         if (direction === "right") {
-            prevWidth = $resize.offsetWidth - sumWidth - nextWidth;
+            prevWidth = $resize.getBoundingClientRect().width - sumWidth - nextWidth;
             if (prevWidth < prevMinWidth) prevWidth = prevMinWidth;
         } else if (direction === "left") {
-            nextWidth = $resize.offsetWidth - sumWidth - prevWidth;
+            nextWidth = $resize.getBoundingClientRect().width - sumWidth - prevWidth;
             if (nextWidth < nextMinWidth) nextWidth = nextMinWidth;
         }
 
-        if ($resize.offsetWidth === sumWidth + prevWidth + nextWidth) {
+        if ($resize.getBoundingClientRect().width === sumWidth + prevWidth + nextWidth) {
             $prev.style.width = prevWidth + "px";
             $next.style.width = nextWidth + "px";
         }
@@ -524,20 +524,20 @@ class Resize extends React.Component {
         let sum = 0;
         let remain = 0;
         for (var i = 0; i < $horizon.length; i++) {
-            sum += $horizon[i].offsetWidth;
+            sum += $horizon[i].getBoundingClientRect().width;
         }
         for (var i = 0; i < $handle.length; i++) {
-            sum += $handle[i].offsetWidth;
+            sum += $handle[i].getBoundingClientRect().width;
         }
-        remain = $resize.offsetWidth - sum;
+        remain = $resize.getBoundingClientRect().width - sum;
 
         if (remain > 0) {
             $horizon[$horizon.length - 1].style.width =
-                remain + $horizon[$horizon.length - 1].offsetWidth + "px";
+                remain + $horizon[$horizon.length - 1].getBoundingClientRect().width + "px";
         } else if (remain < 0) {
             for (var i = $horizon.length - 1; 0 <= i; i--) {
                 var min_width = parseInt($horizon[i].getAttribute("min-width"));
-                remain += $horizon[i].offsetWidth - min_width;
+                remain += $horizon[i].getBoundingClientRect().width - min_width;
                 0;
 
                 if (remain >= 0) {
