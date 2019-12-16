@@ -3,6 +3,7 @@
     "version": "0.2.3",
     "description": "This react component resize the layout of HTML using a handle",
     "main": "dist/index.js",
+    "types": "typings/index.d.ts",
     "scripts": {
         "build": "rimraf dist && babel src --out-dir dist",
         "dev": "babel src --watch --out-dir dist"
